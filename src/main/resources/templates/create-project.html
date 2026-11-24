@@ -1,0 +1,181 @@
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Project | FreelanceHub</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', sans-serif;
+        }
+
+        body {
+            background: #0b1120;
+            color: #f1f5f9;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 30px 15px;
+        }
+
+        .form-container {
+            width: 100%;
+            max-width: 650px;
+            background: #151f32;
+            padding: 40px;
+            border-radius: 18px;
+            border: 1px solid #29364d;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.35);
+        }
+
+        h1 {
+            font-size: 30px;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            color: #94a3b8;
+            margin-bottom: 30px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 13px 15px;
+            border-radius: 9px;
+            border: 1px solid #34445e;
+            background: #0b1425;
+            color: white;
+            font-size: 15px;
+            outline: none;
+        }
+
+        input:focus, textarea:focus {
+            border-color: #8b5cf6;
+            box-shadow: 0 0 0 3px rgba(139,92,246,0.15);
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .buttons {
+            display: flex;
+            gap: 12px;
+            margin-top: 28px;
+        }
+
+        button, .cancel {
+            flex: 1;
+            padding: 14px;
+            border-radius: 9px;
+            font-size: 15px;
+            font-weight: 600;
+            text-align: center;
+            text-decoration: none;
+            cursor: pointer;
+            transition: 0.25s;
+        }
+
+        button {
+            background: #8b5cf6;
+            border: none;
+            color: white;
+        }
+
+        button:hover {
+            background: #7c3aed;
+            transform: translateY(-2px);
+        }
+
+        button:active, .cancel:active {
+            transform: scale(0.97);
+        }
+
+        .cancel {
+            background: #26344a;
+            color: white;
+        }
+
+        .cancel:hover {
+            background: #34445e;
+        }
+
+        @media (max-width: 500px) {
+            .form-container {
+                padding: 25px 20px;
+            }
+
+            .buttons {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="form-container">
+
+    <h1>Post a New Project</h1>
+    <p class="subtitle">Find the right freelancer to bring your idea to life.</p>
+
+    <form th:action="@{/projects/create}" th:object="${project}" method="post">
+
+        <div class="form-group">
+            <label>Client ID</label>
+            <input type="number" th:field="*{clientId}" min="1" required>
+        </div>
+
+        <div class="form-group">
+            <label>Project Title</label>
+            <input type="text" th:field="*{title}"
+                   placeholder="e.g. E-Commerce Website" maxlength="150" required>
+        </div>
+
+        <div class="form-group">
+            <label>Project Description</label>
+            <textarea th:field="*{description}"
+                      placeholder="Describe your project requirements..."
+                      required></textarea>
+        </div>
+
+        <div class="form-group">
+            <label>Budget (₹)</label>
+            <input type="number" th:field="*{budget}"
+                   min="1" step="0.01" placeholder="50000" required>
+        </div>
+
+        <div class="form-group">
+            <label>Project Deadline</label>
+            <input type="date" th:field="*{deadline}">
+        </div>
+
+        <div class="buttons">
+            <a href="/projects" class="cancel">Cancel</a>
+            <button type="submit">Publish Project →</button>
+        </div>
+
+    </form>
+
+</div>
+
+</body>
+</html>

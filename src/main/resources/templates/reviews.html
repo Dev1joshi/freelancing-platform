@@ -1,0 +1,129 @@
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reviews | FreelanceHub</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #0f172a;
+            color: #f8fafc;
+            padding: 40px;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: auto;
+        }
+
+        h1 {
+            color: #a78bfa;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            color: #94a3b8;
+            margin-bottom: 30px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+            gap: 22px;
+        }
+
+        .card {
+            background: #1e293b;
+            border: 1px solid #334155;
+            border-radius: 14px;
+            padding: 25px;
+            transition: 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-6px);
+            border-color: #8b5cf6;
+        }
+
+        .rating {
+            font-size: 22px;
+            margin: 15px 0;
+        }
+
+        .comment {
+            color: #cbd5e1;
+            line-height: 1.6;
+            margin: 12px 0;
+        }
+
+        .details {
+            color: #94a3b8;
+            font-size: 13px;
+            margin-top: 15px;
+        }
+
+        .back {
+            display: inline-block;
+            margin-top: 30px;
+            color: #a78bfa;
+            text-decoration: none;
+        }
+
+        @media (max-width: 600px) {
+            body {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>Client Reviews</h1>
+    <p class="subtitle">Feedback and ratings from completed projects.</p>
+
+    <div class="grid">
+
+        <div class="card" th:each="review : ${reviews}">
+
+            <h3>
+                Contract #
+                <span th:text="${review.contractId}"></span>
+            </h3>
+
+            <div class="rating">
+                <span th:each="star : ${#numbers.sequence(1, 5)}"
+                      th:style="${star <= review.rating} ? 'color: #facc15;' : 'color: #475569;'">★</span>
+            </div>
+
+            <p class="comment" th:text="${review.reviewComment}"></p>
+
+            <div class="details">
+                <p>Client ID: <span th:text="${review.clientId}"></span></p>
+                <p>Freelancer ID: <span th:text="${review.freelancerId}"></span></p>
+                <p>Date: <span th:text="${review.createdAt}"></span></p>
+            </div>
+
+        </div>
+
+    </div>
+
+    <p th:if="${#lists.isEmpty(reviews)}">No reviews available.</p>
+
+    <a href="/" class="back">← Back to Home</a>
+
+</div>
+
+</body>
+</html>

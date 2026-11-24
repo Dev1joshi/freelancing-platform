@@ -1,0 +1,196 @@
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Proposals | FreelanceHub</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #0f172a;
+            color: #f8fafc;
+            padding: 40px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: auto;
+        }
+
+        h1 {
+            color: #a78bfa;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            color: #94a3b8;
+            margin-bottom: 30px;
+        }
+
+        .table-wrapper {
+            overflow-x: auto;
+            border-radius: 12px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: #1e293b;
+            min-width: 900px;
+        }
+
+        th, td {
+            padding: 16px;
+            text-align: left;
+            border-bottom: 1px solid #334155;
+        }
+
+        th {
+            background: #312e81;
+        }
+
+        tr:hover {
+            background: #334155;
+        }
+
+        .status {
+            padding: 6px 11px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .pending {
+            background: #78350f;
+            color: #fde68a;
+        }
+
+        .accepted {
+            background: #14532d;
+            color: #bbf7d0;
+        }
+
+        .rejected {
+            background: #7f1d1d;
+            color: #fecaca;
+        }
+
+        .actions {
+            display: flex;
+            gap: 8px;
+        }
+
+        .action-button {
+            padding: 8px 12px;
+            border: none;
+            border-radius: 6px;
+            color: white;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .accept {
+            background: #15803d;
+        }
+
+        .reject {
+            background: #b91c1c;
+        }
+
+        .back {
+            display: inline-block;
+            margin-top: 25px;
+            color: #a78bfa;
+            text-decoration: none;
+        }
+
+        @media (max-width: 600px) {
+            body {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>Project Proposals</h1>
+    <p class="subtitle">Track and manage proposals submitted by freelancers.</p>
+
+    <div class="table-wrapper">
+        <table>
+            <thead>
+            <tr>
+                <th>Proposal ID</th>
+                <th>Project ID</th>
+                <th>Freelancer ID</th>
+                <th>Proposed Amount</th>
+                <th>Cover Letter</th>
+                <th>Status</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+
+            <tbody>
+            <tr th:each="proposal : ${proposals}">
+                <td th:text="${proposal.proposalId}"></td>
+                <td th:text="${proposal.projectId}"></td>
+                <td th:text="${proposal.freelancerId}"></td>
+                <td>₹<span th:text="${proposal.proposedAmount}"></span></td>
+                <td th:text="${proposal.coverLetter}"></td>
+
+                <td>
+                    <span class="status"
+                          th:classappend="${#strings.toLowerCase(proposal.status)}"
+                          th:text="${proposal.status}">
+                    </span>
+                </td>
+
+                <td>
+                    <div class="actions" th:if="${proposal.status == 'PENDING'}">
+
+                        <form th:action="@{/proposals/{id}/accept(id=${proposal.proposalId})}"
+                              method="post">
+                            <button type="submit" class="action-button accept">
+                                Accept
+                            </button>
+                        </form>
+
+                        <form th:action="@{/proposals/{id}/reject(id=${proposal.proposalId})}"
+                              method="post">
+                            <button type="submit" class="action-button reject">
+                                Reject
+                            </button>
+                        </form>
+
+                    </div>
+
+                    <span th:if="${proposal.status != 'PENDING'}">
+                        No actions
+                    </span>
+                </td>
+            </tr>
+
+            <tr th:if="${#lists.isEmpty(proposals)}">
+                <td colspan="7">No proposals found.</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <a href="/" class="back">← Back to Home</a>
+
+</div>
+
+</body>
+</html>

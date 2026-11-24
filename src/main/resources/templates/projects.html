@@ -1,0 +1,175 @@
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projects | FreelanceHub</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #0f172a;
+            color: #f8fafc;
+            padding: 50px;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: auto;
+        }
+
+        h1 {
+            color: #a78bfa;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            color: #94a3b8;
+            margin-bottom: 25px;
+        }
+
+        .create-btn {
+            display: inline-block;
+            margin-bottom: 30px;
+            padding: 13px 22px;
+            background: #8b5cf6;
+            color: white;
+            text-decoration: none;
+            border-radius: 9px;
+            font-weight: 600;
+            transition: 0.25s ease;
+        }
+
+        .create-btn:hover {
+            background: #7c3aed;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(139, 92, 246, 0.3);
+        }
+
+        .create-btn:active {
+            transform: scale(0.96);
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 22px;
+        }
+
+        .card {
+            display: block;
+            background: #1e293b;
+            border: 1px solid #334155;
+            border-radius: 14px;
+            padding: 25px;
+            text-decoration: none;
+            color: inherit;
+            transition: 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-7px);
+            border-color: #8b5cf6;
+            box-shadow: 0 12px 25px rgba(139, 92, 246, 0.12);
+        }
+
+        .card h2 {
+            color: #c4b5fd;
+            margin-bottom: 15px;
+        }
+
+        .card p {
+            color: #cbd5e1;
+            margin: 10px 0;
+            line-height: 1.5;
+        }
+
+        .budget {
+            color: #4ade80;
+            font-size: 20px;
+            font-weight: bold;
+            margin-top: 15px;
+        }
+
+        .status {
+            display: inline-block;
+            background: #312e81;
+            color: #ddd6fe;
+            padding: 7px 12px;
+            border-radius: 20px;
+            margin-top: 12px;
+            font-size: 13px;
+        }
+
+        .back {
+            display: inline-block;
+            margin-top: 30px;
+            color: #a78bfa;
+            text-decoration: none;
+        }
+
+        .back:hover {
+            color: white;
+        }
+
+        @media (max-width: 600px) {
+            body {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>Explore Projects</h1>
+    <p class="subtitle">Find opportunities posted by our clients.</p>
+
+    <a href="/projects/new" class="create-btn">
+        + Post a New Project
+    </a>
+
+    <div class="grid">
+
+        <a class="card"
+           th:each="project : ${projects}"
+           th:href="@{/projects/{id}(id=${project.projectId})}">
+
+            <h2 th:text="${project.title}"></h2>
+
+            <p th:text="${project.description}"></p>
+
+            <p>
+                <strong>Deadline:</strong>
+                <span th:text="${project.deadline != null ? project.deadline : 'Not specified'}"></span>
+            </p>
+
+            <div class="budget">
+                ₹<span th:text="${project.budget}"></span>
+            </div>
+
+            <span class="status" th:text="${project.status}"></span>
+
+        </a>
+
+    </div>
+
+    <p th:if="${#lists.isEmpty(projects)}">
+        No projects available right now.
+    </p>
+
+    <a href="/" class="back">← Back to Home</a>
+
+</div>
+
+</body>
+</html>

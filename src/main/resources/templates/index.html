@@ -14,6 +14,10 @@
             font-family: 'Segoe UI', sans-serif;
         }
 
+        html {
+            scroll-behavior: smooth;
+        }
+
         body {
             background: #0b1020;
             color: white;
@@ -24,23 +28,35 @@
             justify-content: space-between;
             align-items: center;
             padding: 25px 8%;
+            gap: 25px;
+            flex-wrap: wrap;
         }
 
         .logo {
             font-size: 25px;
             font-weight: 800;
             color: #8b9cff;
+            white-space: nowrap;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 22px;
+            flex-wrap: wrap;
         }
 
         nav a {
             color: #cbd0e0;
             text-decoration: none;
-            margin-left: 25px;
             transition: 0.3s;
+            font-size: 14px;
         }
 
         nav a:hover {
             color: #8b9cff;
+            transform: translateY(-2px);
         }
 
         .hero {
@@ -143,11 +159,70 @@
             line-height: 1.6;
         }
 
+        .dashboard-section {
+            padding: 60px 8%;
+            text-align: center;
+        }
+
+        .dashboard-section h2 {
+            font-size: 34px;
+            margin-bottom: 12px;
+        }
+
+        .dashboard-section > p {
+            color: #aab1c5;
+            margin-bottom: 35px;
+        }
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 18px;
+        }
+
+        .dashboard-card {
+            background: #151d34;
+            border: 1px solid #27314e;
+            border-radius: 14px;
+            padding: 25px 15px;
+            text-decoration: none;
+            color: white;
+            transition: 0.3s;
+        }
+
+        .dashboard-card:hover {
+            transform: translateY(-6px);
+            border-color: #788cff;
+            background: #1b2444;
+        }
+
+        .dashboard-card h3 {
+            color: #a8b5ff;
+            margin-bottom: 9px;
+            font-size: 17px;
+        }
+
+        .dashboard-card p {
+            color: #aab1c5;
+            font-size: 13px;
+            line-height: 1.5;
+        }
+
         footer {
             text-align: center;
             padding: 30px;
             color: #788198;
             border-top: 1px solid #27314e;
+        }
+
+        @media (max-width: 1050px) {
+            .dashboard-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .nav-links {
+                gap: 15px;
+            }
         }
 
         @media (max-width: 750px) {
@@ -156,12 +231,20 @@
                 gap: 20px;
             }
 
-            nav a {
-                margin: 0 8px;
+            .nav-links {
+                gap: 14px;
             }
 
             .features {
                 grid-template-columns: 1fr;
+            }
+
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .dashboard-section h2 {
+                font-size: 27px;
             }
         }
     </style>
@@ -172,15 +255,19 @@
 <nav>
     <div class="logo">FreelanceHub.</div>
 
-    <div>
+    <div class="nav-links">
         <a href="/">Home</a>
         <a href="#features">Features</a>
+        <a href="/projects">Projects</a>
+        <a href="/freelancers">Freelancers</a>
+        <a href="/clients">Clients</a>
         <a href="/login">Login</a>
         <a href="/register">Register</a>
     </div>
 </nav>
 
 <section class="hero">
+
     <div class="tag">A smarter way to freelance</div>
 
     <h1>
@@ -198,23 +285,82 @@
         <a href="/register" class="btn primary">Get Started →</a>
         <a href="#features" class="btn secondary">Explore Platform</a>
     </div>
+
 </section>
 
 <section class="features" id="features">
 
     <div class="card">
         <h3>01. Find Opportunities</h3>
-        <p>Discover projects that match your skills and professional interests.</p>
+        <p>
+            Discover projects that match your skills
+            and professional interests.
+        </p>
     </div>
 
     <div class="card">
         <h3>02. Manage Projects</h3>
-        <p>Submit proposals, manage contracts and track project progress.</p>
+        <p>
+            Submit proposals, manage contracts
+            and track project progress.
+        </p>
     </div>
 
     <div class="card">
         <h3>03. Secure Payments</h3>
-        <p>Maintain transparent payment records and build your reputation through reviews.</p>
+        <p>
+            Maintain transparent payment records
+            and build your reputation through reviews.
+        </p>
+    </div>
+
+</section>
+
+<section class="dashboard-section">
+
+    <h2>Explore FreelanceHub</h2>
+
+    <p>
+        Everything you need to manage your freelancing platform.
+    </p>
+
+    <div class="dashboard-grid">
+
+        <a href="/projects" class="dashboard-card">
+            <h3>Projects</h3>
+            <p>Explore available projects</p>
+        </a>
+
+        <a href="/freelancers" class="dashboard-card">
+            <h3>Freelancers</h3>
+            <p>Discover talented professionals</p>
+        </a>
+
+        <a href="/clients" class="dashboard-card">
+            <h3>Clients</h3>
+            <p>View registered clients</p>
+        </a>
+
+        <a href="/proposals" class="dashboard-card">
+            <h3>Proposals</h3>
+            <p>Track submitted proposals</p>
+        </a>
+
+        <a href="/contracts" class="dashboard-card">
+            <h3>Contracts</h3>
+            <p>Manage project agreements</p>
+        </a>
+
+        <a href="/payments" class="dashboard-card">
+            <h3>Payments</h3>
+            <p>View payment transactions</p>
+        </a>
+
+        <a href="/reviews" class="dashboard-card">
+            <h3>Reviews</h3>
+            <p>Explore client feedback</p>
+        </a>
+
     </div>
 
 </section>

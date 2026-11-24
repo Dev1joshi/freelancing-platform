@@ -1,0 +1,139 @@
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Freelancers | FreelanceHub</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #0f172a;
+            color: #f8fafc;
+            padding: 50px;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: auto;
+        }
+
+        h1 {
+            color: #a78bfa;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            color: #94a3b8;
+            margin-bottom: 30px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 22px;
+        }
+
+        .card {
+            background: #1e293b;
+            border: 1px solid #334155;
+            border-radius: 14px;
+            padding: 25px;
+            transition: 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-7px);
+            border-color: #8b5cf6;
+        }
+
+        .card h2 {
+            color: #c4b5fd;
+            margin-bottom: 12px;
+        }
+
+        .card p {
+            color: #cbd5e1;
+            margin: 9px 0;
+            overflow-wrap: anywhere;
+        }
+
+        .experience {
+            display: inline-block;
+            background: #312e81;
+            color: #ddd6fe;
+            padding: 7px 12px;
+            border-radius: 20px;
+            margin-top: 12px;
+            font-size: 13px;
+        }
+
+        .back {
+            display: inline-block;
+            margin-top: 30px;
+            color: #a78bfa;
+            text-decoration: none;
+        }
+
+        @media (max-width: 600px) {
+            body {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>Discover Freelancers</h1>
+    <p class="subtitle">Explore talented professionals on FreelanceHub.</p>
+
+    <div class="grid">
+
+        <div class="card" th:each="freelancer : ${freelancers}">
+
+            <h2 th:text="${freelancer.fullName}"></h2>
+
+            <p>
+                <strong>Email:</strong>
+                <span th:text="${freelancer.email}"></span>
+            </p>
+
+            <p>
+                <strong>Phone:</strong>
+                <span th:text="${freelancer.phone}"></span>
+            </p>
+
+            <p>
+                <strong>Bio:</strong>
+                <span th:text="${freelancer.bio}"></span>
+            </p>
+
+            <span class="experience">
+                <span th:text="${freelancer.experienceYears}"></span>
+                years experience
+            </span>
+
+        </div>
+
+        <p th:if="${#lists.isEmpty(freelancers)}">
+            No freelancers found.
+        </p>
+
+    </div>
+
+    <a href="/" class="back">← Back to Home</a>
+
+</div>
+
+</body>
+</html>

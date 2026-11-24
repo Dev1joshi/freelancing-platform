@@ -1,0 +1,161 @@
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Submit Proposal | FreelanceHub</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background: #0b1120;
+            color: #f8fafc;
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 650px;
+            margin: auto;
+        }
+
+        .back {
+            display: inline-block;
+            color: #94a3b8;
+            text-decoration: none;
+            margin-bottom: 25px;
+        }
+
+        .back:hover {
+            color: #38bdf8;
+        }
+
+        .card {
+            background: #172033;
+            border: 1px solid #263449;
+            border-radius: 18px;
+            padding: 35px;
+        }
+
+        h1 {
+            font-size: 30px;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            color: #94a3b8;
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+
+        label {
+            display: block;
+            margin: 20px 0 9px;
+            color: #cbd5e1;
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 14px;
+            border: 1px solid #334155;
+            border-radius: 9px;
+            background: #0f172a;
+            color: white;
+            outline: none;
+            font-size: 15px;
+        }
+
+        input:focus, textarea:focus {
+            border-color: #38bdf8;
+        }
+
+        textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        button {
+            width: 100%;
+            margin-top: 25px;
+            padding: 14px;
+            background: #0284c7;
+            color: white;
+            border: none;
+            border-radius: 9px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        button:hover {
+            background: #0369a1;
+            transform: scale(1.02);
+        }
+
+        @media(max-width: 600px) {
+            .card {
+                padding: 22px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <a th:href="@{/projects/{id}(id=${projectId})}"
+       class="back">← Back to Project</a>
+
+    <div class="card">
+
+        <h1>Submit Your Proposal</h1>
+
+        <p class="subtitle">
+            Share your offer and explain why you are the right freelancer
+            for this project.
+        </p>
+
+        <form th:action="@{/proposals/create}" method="post">
+
+            <input type="hidden"
+                   name="projectId"
+                   th:value="${projectId}">
+
+            <label>Freelancer ID</label>
+            <input type="number"
+                   name="freelancerId"
+                   min="1"
+                   placeholder="Enter your freelancer ID"
+                   required>
+
+            <label>Your Proposed Amount (₹)</label>
+            <input type="number"
+                   name="proposedAmount"
+                   min="1"
+                   step="0.01"
+                   placeholder="Enter your amount"
+                   required>
+
+            <label>Cover Letter</label>
+            <textarea name="coverLetter"
+                      placeholder="Explain your experience and how you will complete this project..."
+                      required></textarea>
+
+            <button type="submit">Submit Proposal</button>
+
+        </form>
+
+    </div>
+
+</div>
+
+</body>
+</html>
