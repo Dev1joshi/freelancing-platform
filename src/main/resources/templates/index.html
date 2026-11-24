@@ -1,0 +1,227 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FreelanceHub | Find Work. Build Your Future.</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', sans-serif;
+        }
+
+        body {
+            background: #0b1020;
+            color: white;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 25px 8%;
+        }
+
+        .logo {
+            font-size: 25px;
+            font-weight: 800;
+            color: #8b9cff;
+        }
+
+        nav a {
+            color: #cbd0e0;
+            text-decoration: none;
+            margin-left: 25px;
+            transition: 0.3s;
+        }
+
+        nav a:hover {
+            color: #8b9cff;
+        }
+
+        .hero {
+            min-height: 80vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 40px 20px;
+        }
+
+        .tag {
+            color: #9caaff;
+            background: #1b2444;
+            padding: 9px 18px;
+            border-radius: 30px;
+            margin-bottom: 25px;
+        }
+
+        h1 {
+            font-size: clamp(40px, 6vw, 72px);
+            max-width: 900px;
+            line-height: 1.1;
+            margin-bottom: 25px;
+        }
+
+        h1 span {
+            color: #8b9cff;
+        }
+
+        .hero p {
+            color: #aab1c5;
+            font-size: 18px;
+            max-width: 600px;
+            line-height: 1.7;
+            margin-bottom: 35px;
+        }
+
+        .buttons {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .btn {
+            padding: 15px 28px;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: 700;
+            transition: 0.25s;
+        }
+
+        .primary {
+            background: #788cff;
+            color: #0b1020;
+        }
+
+        .secondary {
+            border: 1px solid #424b69;
+            color: white;
+        }
+
+        .btn:hover {
+            transform: translateY(-4px) scale(1.03);
+        }
+
+        .btn:active {
+            transform: scale(0.96);
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 22px;
+            padding: 50px 8%;
+        }
+
+        .card {
+            background: #151d34;
+            border: 1px solid #27314e;
+            padding: 30px;
+            border-radius: 16px;
+            transition: 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-8px);
+            border-color: #788cff;
+        }
+
+        .card h3 {
+            margin-bottom: 12px;
+            color: #a8b5ff;
+        }
+
+        .card p {
+            color: #aab1c5;
+            line-height: 1.6;
+        }
+
+        footer {
+            text-align: center;
+            padding: 30px;
+            color: #788198;
+            border-top: 1px solid #27314e;
+        }
+
+        @media (max-width: 750px) {
+            nav {
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            nav a {
+                margin: 0 8px;
+            }
+
+            .features {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<nav>
+    <div class="logo">FreelanceHub.</div>
+
+    <div>
+        <a href="/">Home</a>
+        <a href="#features">Features</a>
+        <a href="/login">Login</a>
+        <a href="/register">Register</a>
+    </div>
+</nav>
+
+<section class="hero">
+    <div class="tag">A smarter way to freelance</div>
+
+    <h1>
+        Work on your terms.<br>
+        <span>Grow without limits.</span>
+    </h1>
+
+    <p>
+        Connect talented freelancers with ambitious clients.
+        Discover opportunities, manage projects and build
+        meaningful professional relationships.
+    </p>
+
+    <div class="buttons">
+        <a href="/register" class="btn primary">Get Started →</a>
+        <a href="#features" class="btn secondary">Explore Platform</a>
+    </div>
+</section>
+
+<section class="features" id="features">
+
+    <div class="card">
+        <h3>01. Find Opportunities</h3>
+        <p>Discover projects that match your skills and professional interests.</p>
+    </div>
+
+    <div class="card">
+        <h3>02. Manage Projects</h3>
+        <p>Submit proposals, manage contracts and track project progress.</p>
+    </div>
+
+    <div class="card">
+        <h3>03. Secure Payments</h3>
+        <p>Maintain transparent payment records and build your reputation through reviews.</p>
+    </div>
+
+</section>
+
+<footer>
+    © 2026 FreelanceHub. Built for better opportunities.
+</footer>
+
+</body>
+</html>
