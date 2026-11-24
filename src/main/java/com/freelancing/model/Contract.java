@@ -8,6 +8,8 @@ public class Contract {
 
     private int contractId;
     private int proposalId;
+    private int freelancerId;
+    private int clientId;
     private LocalDate startDate;
     private LocalDate endDate;
     private BigDecimal agreedAmount;
@@ -27,6 +29,22 @@ public class Contract {
 
     public void setProposalId(int proposalId) {
         this.proposalId = proposalId;
+    }
+
+    public int getFreelancerId() {
+        return freelancerId;
+    }
+
+    public void setFreelancerId(int freelancerId) {
+        this.freelancerId = freelancerId;
+    }
+
+    public int getClientId() {
+        return clientId;
+    }
+
+    public void setClientId(int clientId) {
+        this.clientId = clientId;
     }
 
     public LocalDate getStartDate() {

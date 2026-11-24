@@ -1,9 +1,11 @@
 
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Reviews | FreelanceHub</title>
 
     <style>
@@ -15,72 +17,186 @@
 
         body {
             font-family: Arial, sans-serif;
-            background: #0f172a;
-            color: #f8fafc;
-            padding: 40px;
+            background: #f4f6f9;
+            color: #333;
+        }
+
+        header {
+            background: #172554;
+            color: white;
+            padding: 20px 7%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        header h2 {
+            font-size: 25px;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin-left: 20px;
+            font-size: 14px;
+        }
+
+        nav a:hover {
+            color: #93c5fd;
         }
 
         .container {
+            width: 90%;
             max-width: 1100px;
-            margin: auto;
+            margin: 35px auto;
         }
 
-        h1 {
-            color: #a78bfa;
-            margin-bottom: 10px;
+        .page-title {
+            margin-bottom: 25px;
         }
 
-        .subtitle {
-            color: #94a3b8;
-            margin-bottom: 30px;
+        .page-title h1 {
+            color: #172554;
+            margin-bottom: 8px;
         }
 
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
-            gap: 22px;
+        .page-title p {
+            color: #666;
         }
 
         .card {
-            background: #1e293b;
-            border: 1px solid #334155;
-            border-radius: 14px;
-            padding: 25px;
-            transition: 0.3s ease;
+            background: white;
+            padding: 28px;
+            border-radius: 10px;
+            box-shadow: 0 3px 12px rgba(0, 0, 0, 0.07);
+            margin-bottom: 30px;
         }
 
-        .card:hover {
-            transform: translateY(-6px);
-            border-color: #8b5cf6;
+        .card h2 {
+            color: #172554;
+            margin-bottom: 22px;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group.full-width {
+            grid-column: 1 / -1;
+        }
+
+        label {
+            font-weight: bold;
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+
+        input,
+        select,
+        textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 14px;
+            outline: none;
+        }
+
+        input:focus,
+        select:focus,
+        textarea:focus {
+            border-color: #2563eb;
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .submit-btn {
+            background: #2563eb;
+            color: white;
+            border: none;
+            padding: 13px 25px;
+            border-radius: 6px;
+            font-size: 15px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+
+        .submit-btn:hover {
+            background: #1d4ed8;
+        }
+
+        .table-wrapper {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 750px;
+        }
+
+        th,
+        td {
+            padding: 14px;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+            font-size: 14px;
+        }
+
+        th {
+            background: #172554;
+            color: white;
+        }
+
+        tr:hover {
+            background: #f8fafc;
         }
 
         .rating {
-            font-size: 22px;
-            margin: 15px 0;
+            color: #eab308;
+            font-weight: bold;
         }
 
-        .comment {
-            color: #cbd5e1;
-            line-height: 1.6;
-            margin: 12px 0;
+        .empty-message {
+            text-align: center;
+            color: #777;
+            padding: 25px;
         }
 
-        .details {
-            color: #94a3b8;
-            font-size: 13px;
-            margin-top: 15px;
-        }
-
-        .back {
-            display: inline-block;
+        footer {
+            text-align: center;
+            padding: 22px;
+            color: #777;
             margin-top: 30px;
-            color: #a78bfa;
-            text-decoration: none;
         }
 
-        @media (max-width: 600px) {
-            body {
-                padding: 20px;
+        @media (max-width: 700px) {
+            header {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            nav a {
+                margin: 0 7px;
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .form-group.full-width {
+                grid-column: auto;
             }
         }
     </style>
@@ -88,42 +204,215 @@
 
 <body>
 
+<header>
+    <h2>FreelanceHub</h2>
+
+    <nav>
+        <a th:href="@{/}">Home</a>
+        <a th:href="@{/projects}">Projects</a>
+        <a th:href="@{/proposals}">Proposals</a>
+        <a th:href="@{/contracts}">Contracts</a>
+        <a th:href="@{/payments}">Payments</a>
+        <a th:href="@{/reviews}">Reviews</a>
+    </nav>
+</header>
+
 <div class="container">
 
-    <h1>Client Reviews</h1>
-    <p class="subtitle">Feedback and ratings from completed projects.</p>
+    <div class="page-title">
+        <h1>Reviews & Ratings</h1>
+        <p>Share your experience and review completed freelance work.</p>
+    </div>
 
-    <div class="grid">
+    <!-- CREATE REVIEW FORM -->
+    <div class="card">
 
-        <div class="card" th:each="review : ${reviews}">
+        <h2>Write a Review</h2>
 
-            <h3>
-                Contract #
-                <span th:text="${review.contractId}"></span>
-            </h3>
+        <form th:action="@{/reviews/create}"
+              th:object="${review}"
+              method="post">
 
-            <div class="rating">
-                <span th:each="star : ${#numbers.sequence(1, 5)}"
-                      th:style="${star <= review.rating} ? 'color: #facc15;' : 'color: #475569;'">★</span>
+            <div class="form-grid">
+
+                <!-- CONTRACT -->
+                <div class="form-group full-width">
+
+                    <label for="contractId">Select Contract</label>
+
+                    <select th:field="*{contractId}"
+                            id="contractId"
+                            required
+                            onchange="updateFreelancerId()">
+
+                        <option value="">-- Select Contract --</option>
+
+                        <option th:each="contract : ${contracts}"
+                                th:value="${contract.contractId}"
+                                th:attr="data-freelancer=${contract.freelancerId}"
+                                th:text="'Contract #' + ${contract.contractId} + ' - ₹' + ${contract.agreedAmount}">
+                        </option>
+
+                    </select>
+
+                </div>
+
+                <!-- CLIENT ID -->
+                <div class="form-group">
+
+                    <label for="clientId">Client ID</label>
+
+                    <input type="number"
+                           th:field="*{clientId}"
+                           id="clientId"
+                           min="1"
+                           placeholder="Enter Client ID"
+                           required>
+
+                </div>
+
+                <!-- FREELANCER ID -->
+                <div class="form-group">
+
+                    <label for="freelancerId">Freelancer ID</label>
+
+                    <input type="number"
+                           th:field="*{freelancerId}"
+                           id="freelancerId"
+                           min="1"
+                           placeholder="Automatically selected from contract"
+                           required
+                           readonly>
+
+                </div>
+
+                <!-- RATING -->
+                <div class="form-group full-width">
+
+                    <label for="rating">Rating</label>
+
+                    <select th:field="*{rating}"
+                            id="rating"
+                            required>
+
+                        <option value="">-- Select Rating --</option>
+                        <option value="5">5 - Excellent</option>
+                        <option value="4">4 - Very Good</option>
+                        <option value="3">3 - Good</option>
+                        <option value="2">2 - Average</option>
+                        <option value="1">1 - Poor</option>
+
+                    </select>
+
+                </div>
+
+                <!-- COMMENT -->
+                <div class="form-group full-width">
+
+                    <label for="reviewComment">Review Comment</label>
+
+                    <textarea th:field="*{reviewComment}"
+                              id="reviewComment"
+                              placeholder="Write your experience about this project..."
+                              required></textarea>
+
+                </div>
+
             </div>
 
-            <p class="comment" th:text="${review.reviewComment}"></p>
+            <button type="submit" class="submit-btn">
+                Submit Review
+            </button>
 
-            <div class="details">
-                <p>Client ID: <span th:text="${review.clientId}"></span></p>
-                <p>Freelancer ID: <span th:text="${review.freelancerId}"></span></p>
-                <p>Date: <span th:text="${review.createdAt}"></span></p>
-            </div>
+        </form>
+
+    </div>
+
+    <!-- ALL REVIEWS -->
+    <div class="card">
+
+        <h2>Customer Reviews</h2>
+
+        <div class="table-wrapper">
+
+            <table>
+
+                <thead>
+                <tr>
+                    <th>Review ID</th>
+                    <th>Contract ID</th>
+                    <th>Client ID</th>
+                    <th>Freelancer ID</th>
+                    <th>Rating</th>
+                    <th>Review Comment</th>
+                    <th>Created At</th>
+                </tr>
+                </thead>
+
+                <tbody>
+
+                <tr th:each="r : ${reviews}">
+
+                    <td th:text="${r.reviewId}"></td>
+
+                    <td th:text="${r.contractId}"></td>
+
+                    <td th:text="${r.clientId}"></td>
+
+                    <td th:text="${r.freelancerId}"></td>
+
+                    <td class="rating"
+                        th:text="${r.rating} + ' / 5'"></td>
+
+                    <td th:text="${r.reviewComment}"></td>
+
+                    <td th:text="${r.createdAt != null ? #temporals.format(r.createdAt, 'dd-MM-yyyy HH:mm') : '-'}"></td>
+
+                </tr>
+
+                <tr th:if="${#lists.isEmpty(reviews)}">
+
+                    <td colspan="7" class="empty-message">
+                        No reviews available yet.
+                    </td>
+
+                </tr>
+
+                </tbody>
+
+            </table>
 
         </div>
 
     </div>
 
-    <p th:if="${#lists.isEmpty(reviews)}">No reviews available.</p>
-
-    <a href="/" class="back">← Back to Home</a>
-
 </div>
+
+<footer>
+    © 2026 FreelanceHub. All rights reserved.
+</footer>
+
+<script>
+
+    function updateFreelancerId() {
+
+        const contractSelect = document.getElementById("contractId");
+        const freelancerInput = document.getElementById("freelancerId");
+
+        const selectedOption =
+            contractSelect.options[contractSelect.selectedIndex];
+
+        const freelancerId =
+            selectedOption.getAttribute("data-freelancer");
+
+        freelancerInput.value = freelancerId || "";
+    }
+
+    document.addEventListener("DOMContentLoaded", function () {
+        updateFreelancerId();
+    });
+
+</script>
 
 </body>
 </html>

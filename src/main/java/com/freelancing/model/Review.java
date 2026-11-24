@@ -6,10 +6,10 @@ import java.time.LocalDateTime;
 public class Review {
 
     private int reviewId;
-    private int contractId;
+    private Integer contractId;
     private int clientId;
     private int freelancerId;
-    private int rating;
+    private Integer rating;
     private String reviewComment;
     private LocalDateTime createdAt;
 
@@ -21,11 +21,11 @@ public class Review {
         this.reviewId = reviewId;
     }
 
-    public int getContractId() {
+    public Integer getContractId() {
         return contractId;
     }
 
-    public void setContractId(int contractId) {
+    public void setContractId(Integer contractId) {
         this.contractId = contractId;
     }
 
@@ -45,11 +45,11 @@ public class Review {
         this.freelancerId = freelancerId;
     }
 
-    public int getRating() {
+    public Integer getRating() {
         return rating;
     }
 
-    public void setRating(int rating) {
+    public void setRating(Integer rating) {
         this.rating = rating;
     }
 

@@ -21,10 +21,21 @@ public class ReviewService {
     }
 
     public void createReview(Review review) {
-        if (review.getRating() < 1 || review.getRating() > 5) {
-            throw new IllegalArgumentException("Rating must be between 1 and 5");
+
+        if (review.getContractId() == null) {
+            throw new IllegalArgumentException("Please select a contract");
+        }
+
+        if (review.getRating() == null ||
+                review.getRating() < 1 ||
+                review.getRating() > 5) {
+
+            throw new IllegalArgumentException(
+                    "Rating must be between 1 and 5"
+            );
         }
 
         reviewRepository.save(review);
     }
 }
+g

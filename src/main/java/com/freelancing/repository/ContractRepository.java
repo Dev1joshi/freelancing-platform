@@ -17,13 +17,31 @@ public class ContractRepository {
     }
 
     public List<Contract> findAll() {
-        String sql = "SELECT * FROM contracts ORDER BY contract_id DESC";
+
+        String sql = """
+                SELECT c.*,
+                       p.freelancer_id,
+                       pr.client_id
+                FROM contracts c
+                JOIN proposals p ON c.proposal_id = p.proposal_id
+                JOIN projects pr ON p.project_id = pr.project_id
+                ORDER BY c.contract_id DESC
+                """;
 
         return jdbcTemplate.query(sql, (rs, rowNum) -> mapContract(rs));
     }
 
     public Contract findById(int contractId) {
-        String sql = "SELECT * FROM contracts WHERE contract_id = ?";
+
+        String sql = """
+                SELECT c.*,
+                       p.freelancer_id,
+                       pr.client_id
+                FROM contracts c
+                JOIN proposals p ON c.proposal_id = p.proposal_id
+                JOIN projects pr ON p.project_id = pr.project_id
+                WHERE c.contract_id = ?
+                """;
 
         List<Contract> contracts = jdbcTemplate.query(
                 sql,
@@ -41,6 +59,8 @@ public class ContractRepository {
 
         contract.setContractId(rs.getInt("contract_id"));
         contract.setProposalId(rs.getInt("proposal_id"));
+        contract.setFreelancerId(rs.getInt("freelancer_id"));
+        contract.setClientId(rs.getInt("client_id"));
 
         java.sql.Date startDate = rs.getDate("start_date");
         java.sql.Date endDate = rs.getDate("end_date");
@@ -60,21 +80,26 @@ public class ContractRepository {
     }
 
     public void save(Contract contract) {
+
         String sql = """
                 INSERT INTO contracts
                 (proposal_id, start_date, end_date, agreed_amount, status)
                 VALUES (?, ?, ?, ?, 'ACTIVE')
                 """;
 
-        jdbcTemplate.update(sql,
+        jdbcTemplate.update(
+                sql,
                 contract.getProposalId(),
                 contract.getStartDate(),
                 contract.getEndDate(),
-                contract.getAgreedAmount());
+                contract.getAgreedAmount()
+        );
     }
 
     public void updateStatus(int contractId, String status) {
+
         String sql = "UPDATE contracts SET status = ? WHERE contract_id = ?";
+
         jdbcTemplate.update(sql, status, contractId);
     }
 }
