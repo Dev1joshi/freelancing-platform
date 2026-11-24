@@ -23,13 +23,18 @@ public class ProjectController {
     }
 
     @GetMapping("/projects/new")
-    public String showCreateProjectForm() {
+    public String showCreateProjectForm(Model model) {
+
+        model.addAttribute("project", new Project());
+
         return "create-project";
     }
 
     @PostMapping("/projects/create")
     public String createProject(@ModelAttribute Project project) {
+
         projectService.createProject(project);
+
         return "redirect:/projects";
     }
 
@@ -44,6 +49,7 @@ public class ProjectController {
         }
 
         model.addAttribute("project", project);
+
         return "project-details";
     }
 }

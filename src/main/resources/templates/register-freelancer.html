@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>
+        <!DOCTYPE html>
+        <html lang="en" xmlns:th="http://www.thymeleaf.org">
+        <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Join FreelanceHub</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', sans-serif;
+        }
+
+        body {
+            background: #0b1020;
+            color: white;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 30px 15px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 550px;
+            background: #151d34;
+            padding: 40px;
+            border-radius: 16px;
+            border: 1px solid #27314e;
+        }
+
+        h1 {
+            color: #8b9cff;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            color: #aab1c5;
+            margin-bottom: 30px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #cbd0e0;
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 13px;
+            margin-bottom: 20px;
+            background: #0b1020;
+            border: 1px solid #424b69;
+            border-radius: 8px;
+            color: white;
+            font-size: 15px;
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        input:focus, textarea:focus {
+            outline: none;
+            border-color: #788cff;
+        }
+
+        button {
+            width: 100%;
+            padding: 15px;
+            background: #788cff;
+            color: #0b1020;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #9caaff;
+        }
+
+        .back {
+            display: block;
+            text-align: center;
+            margin-top: 22px;
+            color: #a8b5ff;
+            text-decoration: none;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>Join FreelanceHub</h1>
+    <p class="subtitle">Create your freelancer profile and get started.</p>
+
+    <form th:action="@{/freelancers/register}"
+          th:object="${freelancer}"
+          method="post">
+
+        <label>Full Name</label>
+        <input type="text" th:field="*{fullName}"
+               placeholder="Enter your full name" required>
+
+        <label>Email Address</label>
+        <input type="email" th:field="*{email}"
+               placeholder="Enter your email" required>
+
+        <label>Password</label>
+        <input type="password" th:field="*{password}"
+               placeholder="Create a password" required>
+
+        <label>Phone Number</label>
+        <input type="tel" th:field="*{phone}"
+               placeholder="Enter your phone number" required>
+
+        <label>Years of Experience</label>
+        <input type="number" th:field="*{experienceYears}"
+               min="0" placeholder="e.g. 2" required>
+
+        <label>About You</label>
+        <textarea th:field="*{bio}"
+                  placeholder="Describe your skills and experience"
+                  required></textarea>
+
+        <button type="submit">Create Freelancer Account</button>
+
+    </form>
+
+    <a href="/" class="back">← Back to Home</a>
+
+</div>
+
+</body>
+</html>
+</title>
+</head>
+<body>
+
+</body>
+</html>

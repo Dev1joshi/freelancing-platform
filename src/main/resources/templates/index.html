@@ -14,7 +14,9 @@
             font-family: 'Segoe UI', sans-serif;
         }
 
-        html { scroll-behavior: smooth; }
+        html {
+            scroll-behavior: smooth;
+        }
 
         body {
             background: #0b1020;
@@ -82,7 +84,9 @@
             margin-bottom: 25px;
         }
 
-        h1 span { color: #8b9cff; }
+        h1 span {
+            color: #8b9cff;
+        }
 
         .hero p {
             color: #aab1c5;
@@ -121,7 +125,9 @@
             transform: translateY(-4px) scale(1.03);
         }
 
-        .btn:active { transform: scale(0.96); }
+        .btn:active {
+            transform: scale(0.96);
+        }
 
         .features {
             display: grid;
@@ -214,7 +220,9 @@
                 grid-template-columns: repeat(2, 1fr);
             }
 
-            .nav-links { gap: 15px; }
+            .nav-links {
+                gap: 15px;
+            }
         }
 
         @media (max-width: 750px) {
@@ -223,14 +231,18 @@
                 gap: 20px;
             }
 
-            .nav-links { gap: 14px; }
+            .nav-links {
+                gap: 14px;
+            }
 
             .features,
             .dashboard-grid {
                 grid-template-columns: 1fr;
             }
 
-            .dashboard-section h2 { font-size: 27px; }
+            .dashboard-section h2 {
+                font-size: 27px;
+            }
         }
     </style>
 </head>
@@ -247,6 +259,7 @@
         <a href="/freelancers">Freelancers</a>
         <a href="/clients">Clients</a>
         <a href="/proposals">Proposals</a>
+        <a href="/register">Register</a>
     </div>
 </nav>
 
@@ -266,7 +279,7 @@
     </p>
 
     <div class="buttons">
-        <a href="/projects" class="btn primary">Get Started →</a>
+        <a href="/register" class="btn primary">Get Started →</a>
         <a href="#features" class="btn secondary">Explore Platform</a>
     </div>
 

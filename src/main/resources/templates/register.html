@@ -1,0 +1,151 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Join FreelanceHub</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', sans-serif;
+        }
+
+        body {
+            background: #0b1020;
+            color: white;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 25px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 850px;
+            text-align: center;
+        }
+
+        h1 {
+            color: #8b9cff;
+            font-size: 40px;
+            margin-bottom: 12px;
+        }
+
+        .subtitle {
+            color: #aab1c5;
+            margin-bottom: 45px;
+            font-size: 17px;
+        }
+
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 25px;
+        }
+
+        .card {
+            background: #151d34;
+            border: 1px solid #27314e;
+            border-radius: 18px;
+            padding: 40px 25px;
+            transition: 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-8px);
+            border-color: #788cff;
+        }
+
+        .card h2 {
+            color: #a8b5ff;
+            margin-bottom: 15px;
+        }
+
+        .card p {
+            color: #aab1c5;
+            line-height: 1.6;
+            margin-bottom: 30px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 14px 25px;
+            background: #788cff;
+            color: #0b1020;
+            text-decoration: none;
+            border-radius: 9px;
+            font-weight: bold;
+        }
+
+        .btn:hover {
+            background: #9caaff;
+        }
+
+        .back {
+            display: inline-block;
+            margin-top: 35px;
+            color: #a8b5ff;
+            text-decoration: none;
+        }
+
+        @media(max-width: 600px) {
+            .cards {
+                grid-template-columns: 1fr;
+            }
+
+            h1 {
+                font-size: 32px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>Join FreelanceHub</h1>
+
+    <p class="subtitle">
+        Choose how you want to use our platform.
+    </p>
+
+    <div class="cards">
+
+        <div class="card">
+            <h2>I'm a Freelancer</h2>
+            <p>
+                Discover projects, submit proposals,
+                work with clients and grow your career.
+            </p>
+
+            <a href="/freelancers/register" class="btn">
+                Join as Freelancer
+            </a>
+        </div>
+
+        <div class="card">
+            <h2>I'm a Client</h2>
+            <p>
+                Post projects, find talented freelancers
+                and hire professionals for your work.
+            </p>
+
+            <a href="/clients/register" class="btn">
+                Join as Client
+            </a>
+        </div>
+
+    </div>
+
+    <a href="/" class="back">← Back to Home</a>
+
+</div>
+
+</body>
+</html>
