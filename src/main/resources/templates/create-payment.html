@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>
+        <!DOCTYPE html>
+        <html lang="en" xmlns:th="http://www.thymeleaf.org">
+        <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Make Payment | FreelanceHub</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #0f172a;
+            color: #f8fafc;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 500px;
+            background: #1e293b;
+            padding: 35px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+
+        h1 {
+            color: #a78bfa;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            color: #94a3b8;
+            margin-bottom: 25px;
+        }
+
+        .group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #cbd5e1;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 13px;
+            border: 1px solid #475569;
+            border-radius: 7px;
+            background: #0f172a;
+            color: white;
+            font-size: 15px;
+        }
+
+        input[readonly] {
+            color: #a78bfa;
+            font-weight: bold;
+        }
+
+        button {
+            width: 100%;
+            padding: 14px;
+            background: #7c3aed;
+            color: white;
+            border: none;
+            border-radius: 7px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #6d28d9;
+        }
+
+        .back {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            color: #a78bfa;
+            text-decoration: none;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>Make Payment</h1>
+    <p class="subtitle">Complete the payment for your freelance contract.</p>
+
+    <form th:action="@{/payments/create}"
+          th:object="${payment}"
+          method="post">
+
+        <input type="hidden" th:field="*{contractId}">
+
+        <div class="group">
+            <label>Contract ID</label>
+            <input type="text"
+                   th:value="${contract.contractId}"
+                   readonly>
+        </div>
+
+        <div class="group">
+            <label>Agreed Amount</label>
+            <input type="text"
+                   th:value="${'₹' + contract.agreedAmount}"
+                   readonly>
+        </div>
+
+        <div class="group">
+            <label for="paymentMethod">Payment Method</label>
+            <select id="paymentMethod"
+                    th:field="*{paymentMethod}"
+                    required>
+                <option value="">Select Payment Method</option>
+                <option value="UPI">UPI</option>
+                <option value="Bank Transfer">Bank Transfer</option>
+                <option value="Card">Card</option>
+            </select>
+        </div>
+
+        <div class="group">
+            <label for="transactionReference">
+                Transaction Reference (Optional)
+            </label>
+            <input type="text"
+                   id="transactionReference"
+                   th:field="*{transactionReference}"
+                   placeholder="Enter demo transaction reference">
+        </div>
+
+        <button type="submit">Create Payment</button>
+
+    </form>
+
+    <a th:href="@{/contracts}" class="back">← Back to Contracts</a>
+
+</div>
+
+</body>
+</html>
+</title>
+</head>
+<body>
+
+</body>
+</html>

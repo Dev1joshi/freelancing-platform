@@ -19,28 +19,44 @@ public class ContractRepository {
     public List<Contract> findAll() {
         String sql = "SELECT * FROM contracts ORDER BY contract_id DESC";
 
-        return jdbcTemplate.query(sql, (rs, rowNum) -> {
-            Contract contract = new Contract();
+        return jdbcTemplate.query(sql, (rs, rowNum) -> mapContract(rs));
+    }
 
-            contract.setContractId(rs.getInt("contract_id"));
-            contract.setProposalId(rs.getInt("proposal_id"));
+    public Contract findById(int contractId) {
+        String sql = "SELECT * FROM contracts WHERE contract_id = ?";
 
-            java.sql.Date startDate = rs.getDate("start_date");
-            java.sql.Date endDate = rs.getDate("end_date");
+        List<Contract> contracts = jdbcTemplate.query(
+                sql,
+                (rs, rowNum) -> mapContract(rs),
+                contractId
+        );
 
-            if (startDate != null) {
-                contract.setStartDate(startDate.toLocalDate());
-            }
+        return contracts.isEmpty() ? null : contracts.get(0);
+    }
 
-            if (endDate != null) {
-                contract.setEndDate(endDate.toLocalDate());
-            }
+    private Contract mapContract(java.sql.ResultSet rs)
+            throws java.sql.SQLException {
 
-            contract.setAgreedAmount(rs.getBigDecimal("agreed_amount"));
-            contract.setStatus(rs.getString("status"));
+        Contract contract = new Contract();
 
-            return contract;
-        });
+        contract.setContractId(rs.getInt("contract_id"));
+        contract.setProposalId(rs.getInt("proposal_id"));
+
+        java.sql.Date startDate = rs.getDate("start_date");
+        java.sql.Date endDate = rs.getDate("end_date");
+
+        if (startDate != null) {
+            contract.setStartDate(startDate.toLocalDate());
+        }
+
+        if (endDate != null) {
+            contract.setEndDate(endDate.toLocalDate());
+        }
+
+        contract.setAgreedAmount(rs.getBigDecimal("agreed_amount"));
+        contract.setStatus(rs.getString("status"));
+
+        return contract;
     }
 
     public void save(Contract contract) {

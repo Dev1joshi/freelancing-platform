@@ -1,6 +1,7 @@
 
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -21,7 +22,7 @@
         }
 
         .container {
-            max-width: 1100px;
+            max-width: 1200px;
             margin: auto;
         }
 
@@ -35,6 +36,14 @@
             margin-bottom: 30px;
         }
 
+        .warning {
+            background: #7f1d1d;
+            color: #fecaca;
+            padding: 14px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
         .table-wrapper {
             overflow-x: auto;
             border-radius: 12px;
@@ -42,7 +51,7 @@
 
         table {
             width: 100%;
-            min-width: 700px;
+            min-width: 900px;
             border-collapse: collapse;
             background: #1e293b;
         }
@@ -61,11 +70,50 @@
             background: #334155;
         }
 
+        .pay-btn {
+            display: inline-block;
+            padding: 9px 14px;
+            background: #7c3aed;
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+            font-size: 13px;
+            font-weight: bold;
+        }
+
+        .pay-btn:hover {
+            background: #6d28d9;
+        }
+
+        .payment-status {
+            font-weight: bold;
+        }
+
+        .pending {
+            color: #fbbf24;
+        }
+
+        .completed {
+            color: #4ade80;
+        }
+
+        .failed {
+            color: #f87171;
+        }
+
+        .not-available {
+            color: #94a3b8;
+        }
+
         .back {
             display: inline-block;
             margin-top: 25px;
             color: #a78bfa;
             text-decoration: none;
+        }
+
+        .back:hover {
+            color: #c4b5fd;
         }
 
         @media (max-width: 600px) {
@@ -81,10 +129,20 @@
 <div class="container">
 
     <h1>Project Contracts</h1>
-    <p class="subtitle">View agreements between clients and freelancers.</p>
+    <p class="subtitle">
+        View agreements between clients and freelancers.
+    </p>
 
+    <!-- Duplicate Payment Warning -->
+    <div th:if="${paymentExists}" class="warning">
+        A pending or completed payment already exists for this contract.
+    </div>
+
+    <!-- Contracts Table -->
     <div class="table-wrapper">
+
         <table>
+
             <thead>
             <tr>
                 <th>Contract ID</th>
@@ -93,24 +151,76 @@
                 <th>End Date</th>
                 <th>Agreed Amount</th>
                 <th>Status</th>
+                <th>Payment</th>
             </tr>
             </thead>
 
             <tbody>
+
             <tr th:each="contract : ${contracts}">
+
                 <td th:text="${contract.contractId}"></td>
+
                 <td th:text="${contract.proposalId}"></td>
+
                 <td th:text="${contract.startDate}"></td>
+
                 <td th:text="${contract.endDate != null ? contract.endDate : 'Ongoing'}"></td>
-                <td>₹<span th:text="${contract.agreedAmount}"></span></td>
+
+                <td>
+                    ₹<span th:text="${contract.agreedAmount}"></span>
+                </td>
+
                 <td th:text="${contract.status}"></td>
+
+                <td>
+
+                    <!-- Make Payment -->
+                    <a th:if="${contract.status == 'ACTIVE' and paymentStatuses[contract.contractId] == null}"
+                       th:href="@{/payments/create/{id}(id=${contract.contractId})}"
+                       class="pay-btn">
+                        Make Payment
+                    </a>
+
+                    <!-- Pending Payment -->
+                    <span th:if="${paymentStatuses[contract.contractId] == 'PENDING'}"
+                          class="payment-status pending">
+                        Payment Pending
+                    </span>
+
+                    <!-- Completed Payment -->
+                    <span th:if="${paymentStatuses[contract.contractId] == 'COMPLETED'}"
+                          class="payment-status completed">
+                        Payment Completed
+                    </span>
+
+                    <!-- Failed Payment -->
+                    <span th:if="${paymentStatuses[contract.contractId] == 'FAILED'}"
+                          class="payment-status failed">
+                        Payment Failed
+                    </span>
+
+                    <!-- Inactive Contract Without Payment -->
+                    <span th:if="${contract.status != 'ACTIVE' and paymentStatuses[contract.contractId] == null}"
+                          class="not-available">
+                        Not Available
+                    </span>
+
+                </td>
+
             </tr>
 
+            <!-- Empty Table Message -->
             <tr th:if="${#lists.isEmpty(contracts)}">
-                <td colspan="6">No contracts found.</td>
+                <td colspan="7">
+                    No contracts found.
+                </td>
             </tr>
+
             </tbody>
+
         </table>
+
     </div>
 
     <a href="/" class="back">← Back to Home</a>

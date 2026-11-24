@@ -20,6 +20,10 @@ public class ContractService {
         return contractRepository.findAll();
     }
 
+    public Contract getContractById(int contractId) {
+        return contractRepository.findById(contractId);
+    }
+
     public void updateContractStatus(int contractId, String status) {
         if (!List.of("ACTIVE", "COMPLETED", "TERMINATED").contains(status)) {
             throw new IllegalArgumentException("Invalid contract status");

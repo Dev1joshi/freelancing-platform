@@ -21,7 +21,7 @@
         }
 
         .container {
-            max-width: 1100px;
+            max-width: 1200px;
             margin: auto;
         }
 
@@ -42,13 +42,13 @@
 
         table {
             width: 100%;
-            min-width: 800px;
+            min-width: 1000px;
             border-collapse: collapse;
             background: #1e293b;
         }
 
         th, td {
-            padding: 17px;
+            padding: 16px;
             text-align: left;
             border-bottom: 1px solid #334155;
         }
@@ -59,6 +59,36 @@
 
         tr:hover {
             background: #334155;
+        }
+
+        .status {
+            font-weight: bold;
+        }
+
+        .pending {
+            color: #fbbf24;
+        }
+
+        .completed {
+            color: #4ade80;
+        }
+
+        .failed {
+            color: #f87171;
+        }
+
+        .complete-btn {
+            padding: 9px 12px;
+            background: #16a34a;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .complete-btn:hover {
+            background: #15803d;
         }
 
         .back {
@@ -94,23 +124,61 @@
                 <th>Method</th>
                 <th>Status</th>
                 <th>Transaction Reference</th>
+                <th>Action</th>
             </tr>
             </thead>
 
             <tbody>
+
             <tr th:each="payment : ${payments}">
                 <td th:text="${payment.paymentId}"></td>
                 <td th:text="${payment.contractId}"></td>
-                <td>₹<span th:text="${payment.amount}"></span></td>
+
+                <td>
+                    ₹<span th:text="${payment.amount}"></span>
+                </td>
+
                 <td th:text="${payment.paymentDate}"></td>
                 <td th:text="${payment.paymentMethod}"></td>
-                <td th:text="${payment.status}"></td>
-                <td th:text="${payment.transactionReference}"></td>
+
+                <td>
+                    <span class="status"
+                          th:classappend="${payment.status == 'PENDING' ? ' pending' :
+                                           (payment.status == 'COMPLETED' ? ' completed' : ' failed')}"
+                          th:text="${payment.status}">
+                    </span>
+                </td>
+
+                <td th:text="${payment.transactionReference != null ?
+                              payment.transactionReference : 'N/A'}">
+                </td>
+
+                <td>
+                    <form th:if="${payment.status == 'PENDING'}"
+                          th:action="@{/payments/{id}/status(id=${payment.paymentId})}"
+                          method="post">
+
+                        <input type="hidden" name="status" value="COMPLETED">
+
+                        <button type="submit" class="complete-btn">
+                            Mark Completed
+                        </button>
+                    </form>
+
+                    <span th:if="${payment.status == 'COMPLETED'}">
+                        Completed
+                    </span>
+
+                    <span th:if="${payment.status == 'FAILED'}">
+                        Failed
+                    </span>
+                </td>
             </tr>
 
             <tr th:if="${#lists.isEmpty(payments)}">
-                <td colspan="7">No payment records found.</td>
+                <td colspan="8">No payment records found.</td>
             </tr>
+
             </tbody>
         </table>
     </div>
